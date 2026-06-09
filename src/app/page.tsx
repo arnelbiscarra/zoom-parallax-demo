@@ -49,20 +49,7 @@ export default function Home() {
 
 	return (
 		<main className="min-h-screen w-full">
-			<div className="relative flex h-[50vh] items-center justify-center">
-				<div
-					aria-hidden="true"
-					className={cn(
-						'pointer-events-none absolute -top-1/2 left-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 rounded-full',
-						'bg-[radial-gradient(ellipse_at_center,oklch(from_var(--foreground)_l_c_h_/_0.1),transparent_50%)]',
-						'blur-[30px]',
-					)}
-				/>
-				<h1 className="text-center text-4xl font-bold">
-					Scroll Down for Zoom Parallax
-				</h1>
-			</div>
-			<ZoomParallax images={images} />
+				<ZoomParallax images={images} />
 			<div className="h-[50vh]" />
 		</main>
 	);
