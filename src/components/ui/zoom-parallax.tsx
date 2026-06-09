@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 interface Image {
 	src: string;
@@ -10,17 +11,24 @@ interface Image {
 interface ZoomParallaxProps {
 	/** Array of images to be displayed in the parallax effect max 7 images */
 	images: Image[];
-	/** Duration of one full zoom cycle in seconds (default: 6) */
+	/** Duration of one full zoom cycle in seconds (default: 8) */
 	duration?: number;
 }
 
-export function ZoomParallax({ images, duration = 6 }: ZoomParallaxProps) {
+export function ZoomParallax({ images, duration = 8 }: ZoomParallaxProps) {
 	const progress = useMotionValue(0);
+	const startTime = useRef<number | null>(null);
 
 	useAnimationFrame((t) => {
-		// ping-pong between 0 and 1
-		const cycle = (t / 1000 / duration) % 2;
-		progress.set(cycle <= 1 ? cycle : 2 - cycle);
+		if (startTime.current === null) startTime.current = t;
+		const elapsed = (t - startTime.current) / 1000;
+		// ease-in-out using sine curve: 0 → 1 over `duration` seconds, then hard reset
+		const raw = (elapsed % duration) / duration;
+		// smooth ease: slow start, slow end
+		const eased = raw < 0.5
+			? 2 * raw * raw
+			: 1 - Math.pow(-2 * raw + 2, 2) / 2;
+		progress.set(eased);
 	});
 
 	const scale4 = useTransform(progress, [0, 1], [1, 4]);
@@ -32,7 +40,7 @@ export function ZoomParallax({ images, duration = 6 }: ZoomParallaxProps) {
 	const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
 
 	return (
-		<div className="relative h-screen overflow-hidden">
+		<div className="relative h-screen overflow-hidden" style={{ backgroundColor: '#EDE8E3' }}>
 			{images.map(({ src, alt }, index) => {
 				const scale = scales[index % scales.length];
 
