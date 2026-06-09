@@ -18,16 +18,16 @@ export default function Home() {
 
 	const images = [
 		{
+			src: 'https://cmsphoto.ww-cdn.com/superstatic/3445795/art/default/74346745-51719340.jpg?v=1690773655',
+			alt: 'Image 3',
+		},
+		{
 			src: 'https://cmsphoto.ww-cdn.com/superstatic/3445795/art/default/71940688-51251691.jpg?v=1687491315',
 			alt: 'Image 1',
 		},
 		{
 			src: 'https://cmsphoto.ww-cdn.com/superstatic/3445795/art/default/71912479-52563334.jpg?v=1694221197',
 			alt: 'Image 2',
-		},
-		{
-			src: 'https://cmsphoto.ww-cdn.com/superstatic/3445795/art/default/74346745-51719340.jpg?v=1690773655',
-			alt: 'Image 3',
 		},
 		{
 			src: 'https://cmsphoto.ww-cdn.com/superstatic/3445795/art/default/74346742-53005340.jpg?v=1696043972',
