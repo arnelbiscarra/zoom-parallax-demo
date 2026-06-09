@@ -1,20 +1,7 @@
 'use client';
-import React from 'react';
-import { cn } from '@/lib/utils';
-import Lenis from '@studio-freight/lenis';
 import { ZoomParallax } from '@/components/ui/zoom-parallax';
 
 export default function Home() {
-	React.useEffect(() => {
-		const lenis = new Lenis();
-
-		function raf(time: number) {
-			lenis.raf(time);
-			requestAnimationFrame(raf);
-		}
-
-		requestAnimationFrame(raf);
-	}, []);
 
 	const images = [
 		{
@@ -50,7 +37,6 @@ export default function Home() {
 	return (
 		<main className="min-h-screen w-full">
 				<ZoomParallax images={images} />
-			<div className="h-[50vh]" />
 		</main>
 	);
 }
