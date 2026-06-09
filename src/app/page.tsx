@@ -35,7 +35,7 @@ export default function Home() {
 	];
 
 	return (
-		<main className="min-h-screen w-full">
+		<main className="min-h-screen w-full" style={{ backgroundColor: '#EDE8E3' }}>
 				<ZoomParallax images={images} />
 		</main>
 	);
