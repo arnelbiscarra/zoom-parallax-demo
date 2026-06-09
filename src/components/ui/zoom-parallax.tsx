@@ -22,12 +22,11 @@ export function ZoomParallax({ images, duration = 8 }: ZoomParallaxProps) {
 	useAnimationFrame((t) => {
 		if (startTime.current === null) startTime.current = t;
 		const elapsed = (t - startTime.current) / 1000;
-		// ease-in-out using sine curve: 0 → 1 over `duration` seconds, then hard reset
-		const raw = (elapsed % duration) / duration;
-		// smooth ease: slow start, slow end
-		const eased = raw < 0.5
-			? 2 * raw * raw
-			: 1 - Math.pow(-2 * raw + 2, 2) / 2;
+		// ping-pong: 0→1→0→1... over `duration` seconds per half-cycle
+		const cycle = (elapsed % (duration * 2)) / duration;
+		const raw = cycle <= 1 ? cycle : 2 - cycle;
+		// smooth ease-in-out (sine)
+		const eased = -(Math.cos(Math.PI * raw) - 1) / 2;
 		progress.set(eased);
 	});
 
